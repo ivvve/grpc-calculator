@@ -22,8 +22,18 @@ message FactorizationResponse {
     int32 result = 1;
 }
 
+message AverageRequest {
+    int32 reqNum = 1;
+}
+
+message AverageResponse {
+    double result = 1;
+}
+
 service CalculatorService {
     rpc add(AddRequest) returns (AddResponse) {};
 
     rpc factorization(FactorizationRequest) returns (stream FactorizationResponse) {};
+
+    rpc average(stream AverageRequest) returns (AverageResponse) {};
 }
