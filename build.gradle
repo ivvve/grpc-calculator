@@ -1,4 +1,4 @@
-group 'com.simple.grpc'
+group 'com.grpc.calculator'
 version '1.0-SNAPSHOT'
 
 apply plugin: 'java'
