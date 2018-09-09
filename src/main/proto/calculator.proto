@@ -25,5 +25,5 @@ message FactorizationResponse {
 service CalculatorService {
     rpc add(AddRequest) returns (AddResponse) {};
 
-    rpc factorization(FactorizationRequest) returns (FactorizationResponse) {};
+    rpc factorization(FactorizationRequest) returns (stream FactorizationResponse) {};
 }
