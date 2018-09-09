@@ -14,6 +14,16 @@ message AddResponse {
     int32 result = 1;
 }
 
+message FactorizationRequest {
+    int32 reqNum = 1;
+}
+
+message FactorizationResponse {
+    int32 result = 1;
+}
+
 service CalculatorService {
     rpc add(AddRequest) returns (AddResponse) {};
+
+    rpc factorization(FactorizationRequest) returns (FactorizationResponse) {};
 }
