@@ -1,15 +1,15 @@
 package com.grpc.calculator.client;
 
-import com.grpc.calculator.AddRequest;
-import com.grpc.calculator.AddResponse;
-import com.grpc.calculator.CalculatorServiceGrpc;
+import com.grpc.calculator.*;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
+
+import java.util.Iterator;
 
 public class CalculatorClient {
 
     public static void main(String[] args) {
-        runAdd(1, 3);
+        runFactorization(2394);
     }
 
     private static ManagedChannel getChannel() {
@@ -40,4 +40,27 @@ public class CalculatorClient {
         channel.shutdown();
         System.out.println("gRPC client shutdown");
     }
+
+    private static void runFactorization(int num) {
+        ManagedChannel channel = getChannel();
+        CalculatorServiceGrpc.CalculatorServiceBlockingStub blockingStub = getBlockingStub(channel);
+
+        System.out.println("gRPC client started");
+
+        FactorizationRequest request = FactorizationRequest.newBuilder()
+                                                            .setReqNum(num)
+                                                            .build();
+
+        Iterator<FactorizationResponse> responseIterator = blockingStub.factorization(request);
+
+        System.out.printf("%d = ", num);
+
+        responseIterator.forEachRemaining( (response) -> {
+            System.out.printf("%d * ", response.getResult());
+        } );
+
+        channel.shutdown();
+        System.out.println("\ngRPC client shutdown");
+    }
+
 }
